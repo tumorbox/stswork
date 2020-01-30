@@ -15,7 +15,7 @@ public class TilesIndexController {
 	public String mybatisView() {
 		return "menu/mybatis";	//tiles에 등록된 menu/mybatis를 기준으로view를 만들어라
 	}
-	@RequestMapping("menu/advanced.do")
+	@RequestMapping("/menu/advanced.do")
 	public String advancedView() {
 		return "menu/advanced";
 	}
