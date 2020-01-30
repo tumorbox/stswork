@@ -14,6 +14,7 @@ public class Test {
 		//System.out.println("삽입 성공?"+service.insert("exam01", "framework"));
 		//System.out.println("수정 성공? "+ service.update("exam01", "부서"));
 		System.out.println(service.selectAll());
+		
 		List<DeptDTO> list = service.selectAll();
 		for (int i = 0; i < list.size(); i++) {
 			DeptDTO dept = list.get(i);
