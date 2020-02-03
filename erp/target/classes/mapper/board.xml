@@ -2,12 +2,36 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="multi.erp.board">
- 	<select id="listall" resultType="board">
- 		select * from board
- 	</select>
- 	<insert id="insert" parameterType="board">
- 		insert into board values(board_seq.nextval, 'jang', 
- 			#{title}, #{content}, sysdate, #{category}, 0)
- 	</insert>
- </mapper>
+
+<!-- 테이블 하나당 mapper 한개 -->
+<mapper namespace="multi.erp.board">
+	<select id="listall" resultType="board">
+		select * from board
+	</select>
+	<select id="categorySearch" resultType="board" parameterType="String">
+		select * from board where category = #{category}
+	</select>
+	<insert id="insert" parameterType="board">
+		insert into board 
+		values(board_seq.nextval, 'jang', #{title}, #{content}, sysdate, #{category}, 0)
+	</insert>
+	<select id="dynamicSearch" resultType="board" parameterType="Map">
+		select * from board
+		<where>
+			<if test="tag=='title' and search!=''">
+				title like '%' || #{search} || '%'
+			</if>
+			<if test="tag=='id' and search!=''">
+				id like '%' || #{search} || '%'
+			</if>
+			<if test="tag=='content' and search!=''">
+				content like '%' || #{search} || '%'
+			</if>
+			<if test="tag=='write_date' and search!=''">
+				<![CDATA[
+				to_date(write_date) <= #{search}
+				]]>
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -94,7 +94,7 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		return "BoardVO [board_no=" + board_no + ", id=" + id + ", title=" + title + ", content=" + content
+		return "BoardDTO [board_no=" + board_no + ", id=" + id + ", title=" + title + ", content=" + content
 				+ ", write_date=" + write_date + ", category=" + category + "]";
 	}
 	
