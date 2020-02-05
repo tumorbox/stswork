@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ViewNameMethodReturnValueHandler;
 
@@ -49,13 +50,13 @@ public class EmpController {
 
 			// 2. 세션에 데이터 공유
 			ses.setAttribute("user", user);
-			viewName = "index";
+			viewName = "login/ok";
 		} else {
 			// 로그인 실패
 			viewName = "login";
 		}
 
-		mav.setViewName("index");
+		mav.setViewName(viewName);
 		return mav;
 
 	}
@@ -68,5 +69,24 @@ public class EmpController {
 			session.invalidate();
 		}
 		return "redirect:/index.do";
+	}
+	// produces속성 : ajax요청 후 클라이언트로 전송할 데이터의 타입을 정의
+	//			    application/text는  Ajax 요청 후 클라이언트로 보내는 응답메시지의 타입이 text라는 뜻
+	
+	@RequestMapping("/emp/insertView.do")
+	public String insertView() {
+		return "emp/insert";
+	}
+	@RequestMapping(value="/emp/idCheck.do", method=RequestMethod.GET, produces="application/test;charset=utf-8")
+	public @ResponseBody String idCheck(String id) {
+		boolean state = service.idCheck(id);
+		String result="";
+		if(state) {	//이미 사용자가 입력한 아이디가 db에 저장되어 있다는 의미
+			result="사용 불가능한 아이디";
+		}else {
+			result="사용 가능한 아이디";
+		}
+		return result;
+		
 	}
 }

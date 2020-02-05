@@ -20,5 +20,13 @@
 	<!-- 실제 요청될 뷰 등록(미리 등록한 템플렛을 기반으로 동작) -->
 	<definition name="index" extends="indexTemplate"/>
 	<definition name="login" extends="mainTemplate"/>
+	<definition name="login/ok" extends="mainTemplate">
+		<put-attribute name="menu" value="/WEB-INF/menu/insa_menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/emp/mypage.jsp"></put-attribute>
+	</definition>
+	<definition name="emp/insert" extends="mainTemplate">
+		<put-attribute name="menu" value="/WEB-INF/menu/insa_menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/emp/register.jsp"></put-attribute>
+	</definition>
 	
 </tiles-definitions>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -8,11 +7,32 @@
 <meta charset="UTF-8">
 	<title>Insert title here</title>
 	<script type="text/javascript">
-	
+		$(document).ready(function() {
+			//동적으로이벤트 연결 on으로
+			$("#id").on("keyup", function(){
+				//location.href="/erp/emp/idCheck.do?id="	+$("#id").val();
+				
+				//jQuery에서 Ajax로 요청하기 - get방식
+				//url => 요청 path
+				//data=> 파라미터 : json형식
+				//				json형식{"name":"value";"name":"value".....}
+				//success : ajax요청해서 성공적으로 데이터를 받아 왔을 때
+				//			처리할 내용
+				//dataType : ajax요청 후 응답 받을 데이터의 형식
+				$.get("/erp/emp/idCheck.do", {"id":$("#id").val()}, function (data) {	//응답 데이터
+					//ajax로 요청해서 응답받은 데이터를 <span>태그 내부에 출력
+					$("#checkVal").text(data);
+				},
+				"text");
+					
+				});
+			
+		});
 	</script>
  </head>
 	
 <body>
+	<%=request.getAttribute("info") %>
 	<div class="container-fluid">
 			
 			<form class="form-horizontal" 
@@ -63,7 +83,7 @@
 						<div class="col-sm-3">
 							<input type="text" id="id" name="id"
 								placeholder="사번" class="form-control" 
-								minlength="4"  >
+								minlength="4">
 							
 						</div>
 						<span id="checkVal" style="color: red;"></span>
